@@ -3,19 +3,84 @@
 @tailwind utilities;
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --primary: #6366f1;    /* Electric Indigo */
+  --secondary: #8b5cf6;  /* Purple */
+  --accent-1: #3b82f6;   /* Bright Blue */
+  --accent-2: #2563eb;   /* Deep Blue */
+  --accent-3: #7c3aed;   /* Vibrant Purple */
+  --success: #10b981;    /* Emerald */
+  --warning: #f59e0b;    /* Amber */
+  --error: #ef4444;      /* Red */
+  --background: #0a0a0f; /* Deep Space */
+  --foreground: #ffffff; /* Pure White */
+  --card: rgba(17, 24, 39, 0.7);
+  --border: rgba(255, 255, 255, 0.1);
+  --primary-shadow: rgba(99, 102, 241, 0.25);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+@layer base {
+  body {
+    @apply bg-background text-foreground antialiased;
+    background-image:
+      radial-gradient(circle at 50% 0%, rgba(99, 102, 241, 0.15), transparent 25%),
+      radial-gradient(circle at 0% 50%, rgba(139, 92, 246, 0.1), transparent 25%);
+    background-attachment: fixed;
   }
 }
 
-body {
-  color: var(--foreground);
-  background: var(--background);
-  font-family: Arial, Helvetica, sans-serif;
+@layer components {
+  .glass {
+    @apply bg-card backdrop-blur-xl border border-border rounded-xl bg-opacity-30;
+  }
+
+  .container {
+    @apply max-w-7xl mx-auto px-4 sm:px-6 lg:px-8;
+  }
+
+  .input-area {
+    @apply glass p-6 space-y-4;
+  }
+
+  .textarea-primary {
+    @apply w-full h-64 p-4 bg-background bg-opacity-50
+           border border-border rounded-lg
+           focus:ring-2 focus:ring-primary focus:ring-opacity-50 focus:border-primary
+           transition-all duration-200
+           font-mono text-sm;
+  }
+
+  .button-primary {
+    @apply px-6 py-3 rounded-lg
+           bg-gradient-to-r from-primary to-secondary
+           hover:from-primary hover:to-secondary hover:opacity-90
+           disabled:from-gray-700 disabled:to-gray-800 disabled:cursor-not-allowed
+           text-white font-semibold
+           transition-all duration-200
+           shadow-primary-lg;
+  }
+
+  .gradient-text {
+    @apply bg-clip-text text-transparent bg-gradient-to-r
+           from-primary via-secondary to-accent-1
+           animate-gradient;
+  }
+
+  .card {
+    @apply glass p-6 transition-all duration-200
+           hover:shadow-primary-lg
+           hover:border-primary hover:border-opacity-20;
+  }
+}
+
+@layer utilities {
+  .animate-gradient {
+    background-size: 200% 200%;
+    animation: gradient 8s ease infinite;
+  }
+
+  @keyframes gradient {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+  }
 }

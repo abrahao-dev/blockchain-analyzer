@@ -1,0 +1,18 @@
+{
+  "name": "blockchain-analyzer",
+  "version": "1.0.0",
+  "description": "Solana contract analyzer using LangGraph",
+  "node_version": "20",
+  "dependencies": [
+    "@langchain/core",
+    "@langchain/openai",
+    "@langchain/langgraph"
+  ],
+  "graphs": {
+    "contract-analysis": "src/lib/graph/contractGraph.ts"
+  },
+  "langsmith": {
+    "api_key": "${LANGCHAIN_API_KEY}",
+    "project": "blockchain-analyzer"
+  }
+}
